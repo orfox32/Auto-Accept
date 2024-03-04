@@ -12,6 +12,12 @@ League of Legends Auto Accept Queue is a C++ script/tool designed to automatical
 * **Lightweight:** The tool is designed to be lightweight and have minimal impact on system resources.
 * **Easy to Use:** Simple setup and usage instructions provided.
 
+## Future Ideas
+
+* **Auto Ban and Auto Pick:** Implement functionality to automatically ban and pick champions during the ban and pick phases of the game. This feature would streamline the champion selection process, ensuring that players get their desired champions without manual input.
+* **Auto Runes and Spells** Integrate automated rune and Spells selection based on predefined configurations or adaptive algorithms. This feature would optimize player setups for their selected champions and playstyles, enhancing in-game performance.
+* **User Interface (UI) Development:** Create a user-friendly interface to provide players with more control over the program's settings and to display relevant information such as match details, acceptance status, champion selections, and rune setups. The UI would enhance the overall user.
+
 ## Usage
 
 1. **Download the Tool:** Clone or download the repository to your local machine.
@@ -27,11 +33,7 @@ League of Legends Auto Accept Queue is a C++ script/tool designed to automatical
 
 ## Screenshots
 
-![Screenshot 1](images/screenshot1.png)
-
 ![Screenshot 2](images/screenshot2.png)
-
-![Screenshot 3](images/screenshot3.png)
 
 ## Demo
 
