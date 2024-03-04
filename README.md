@@ -31,10 +31,6 @@ League of Legends Auto Accept Queue is a C++ script/tool designed to automatical
 * C++ compiler (e.g., GCC, Clang, Visual Studio)
 * League of Legends client running in the background
 
-## Screenshots
-
-![Screenshot 2](images/screenshot2.png)
-
 ## Demo
 
 <div align="center">
