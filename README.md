@@ -57,6 +57,5 @@ For any inquiries or support, you can reach out to orfox32@gmail.com.
 
 Thank you for using League of Legends Auto Accept Queue (C++ Version)! Happy gaming! 🎮🚀
 
-## Contributor
 
-[<img src="https://github.com/{{ carlmarinyo }}.png" width="60px;"/><br /><sub><ahref="https://github.com/{{ carlmarinyo }}">{{ carlmarinyo }}</a></sub>](https://github.com/{{ carlmarinyo }}/{{ Auto-Accept }}
+
