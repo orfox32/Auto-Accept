@@ -53,7 +53,7 @@ This project is licensed under the MIT License.
 
 For any inquiries or support, you can reach out to orfox32@gmail.com.
 
-Thank you for using League of Legends Auto Accept Queue (C++ Version)! Happy gaming! 🎮🚀
+Thank you for using League of Legends Auto Accept Queue! Happy gaming! 🎮🚀
 
 
 
