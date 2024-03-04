@@ -35,7 +35,7 @@ League of Legends Auto Accept Queue is a C++ script/tool designed to automatical
 
 ## Demo
 
-![GIF](images/example.gif)
+![GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbmEwM2gzcTYyc296bWxudTJiM2ZvZ3h4amVoaXB0cnlnamhyM2dwOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/zrREkZsZenWPCQAXro/giphy.gif)
 
 ## Disclaimer
 
