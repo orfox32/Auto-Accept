@@ -8,9 +8,9 @@ League of Legends Auto Accept Queue is a C++ script/tool designed to automatical
 
 ## Features
 
-* Automated Queue Acceptance: Automatically accepts queue pop-ups in League of Legends.
-* Lightweight: The tool is designed to be lightweight and have minimal impact on system resources.
-* Easy to Use: Simple setup and usage instructions provided.
+* **Automated Queue Acceptance:** Automatically accepts queue pop-ups in League of Legends.
+* **Lightweight:** The tool is designed to be lightweight and have minimal impact on system resources.
+* **Easy to Use:** Simple setup and usage instructions provided.
 
 ## Usage
 
