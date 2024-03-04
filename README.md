@@ -47,6 +47,6 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-For any inquiries or support, you can reach out me orfox32@gmail.com.
+For any inquiries or support, you can reach out to orfox32@gmail.com.
 
 Thank you for using League of Legends Auto Accept Queue (C++ Version)! Happy gaming! 🎮🚀
