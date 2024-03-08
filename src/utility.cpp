@@ -50,10 +50,10 @@ bool extractAndEncodeRiotPassword(DWORD processId, string& port, string& encoded
 bool authenticateAndAutoAccept(const string& port, const string& authorization) {
 
     bool loggedIn = false;
-    
+
     while (!loggedIn) {
         cout << "Checking login status..." << endl;
-        
+
         try {
             if (!checkLoggedIn(port, authorization)) {
                 cout << "Waiting for login..." << endl;
@@ -77,20 +77,39 @@ bool authenticateAndAutoAccept(const string& port, const string& authorization) 
                 cerr << "Failed to retrieve summoner data." << endl;
             }
 
-            string phase;
-            while (true) {
-                 if (!LeagueClientIsOpen()) {
-                    cerr << "League client has been closed. exiting..." << endl;
-                    std::this_thread::sleep_for(std::chrono::seconds(5));
+            while (loggedIn) {
+                if (!LeagueClientIsOpen()) {
+                    cerr << "League client has been closed. Exiting..." << endl;
                     return false;
                 }
+
                 string phaseUrl = "https://127.0.0.1:" + port + "/lol-gameflow/v1/gameflow-phase";
                 string phaseResponse;
                 if (sendHttpRequest(phaseUrl, authorization, phaseResponse, "GET")) {
                     try {
                         json phaseJson = json::parse(phaseResponse);
-                        phase = phaseJson.get<string>();
-                        cout << "Current phase: " << phase << "\r" << std::flush;
+                        string phase = phaseJson.get<string>();
+                        
+                        if (phase == "ChampSelect") {
+                            cout << "ChampSelect phase detected. Waiting..." << "\r" << std::flush;
+                            while (phase == "ChampSelect") {
+                                std::this_thread::sleep_for(std::chrono::seconds(1));
+                                if (!LeagueClientIsOpen()) {
+                                    cerr << "League client has been closed. Exiting..." << endl;
+                                    return false;
+                                }
+                                string phaseResponse;
+                                if (sendHttpRequest(phaseUrl, authorization, phaseResponse, "GET")) {
+                                    json phaseJson = json::parse(phaseResponse);
+                                    phase = phaseJson.get<string>();
+                                } else {
+                                    cerr << "Failed to retrieve gameflow phase." << endl;
+                                    break; 
+                                }
+                            }
+                        } else {
+                            cout << "Current phase: " << phase << "\r" << std::flush;
+                        }
 
                         if (phase == "ReadyCheck") {
                             string acceptUrl = "https://127.0.0.1:" + port + "/lol-matchmaking/v1/ready-check/accept";
@@ -99,10 +118,6 @@ bool authenticateAndAutoAccept(const string& port, const string& authorization) 
                                 cerr << "Failed to auto-accept match." << endl;
                             }
                         }
-                        else if (phase == "ChampSelect") {
-                            cout << "ChampSelect phase detected. Waiting..." << "\r" << std::flush;
-                        }
-
                         else if (phase == "InProgress") {
                             cout << "Game is in progress. Exiting." << endl;
                             return true;
@@ -121,8 +136,8 @@ bool authenticateAndAutoAccept(const string& port, const string& authorization) 
         }
         catch (const std::exception &e) {
             cerr << "An error occurred: " << e.what() << endl;
+            return false;
         }
     }
-
-    return false;
+     return false;
 }
