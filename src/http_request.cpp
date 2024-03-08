@@ -73,3 +73,8 @@ bool checkLoggedIn(const string &port, const string &authorization)
 
     return sendHttpRequest(url, authorization, response, "GET");
 }
+
+bool getSummonerData(const string& port, const string& authorization, string& summonerData) {
+    string url = "https://127.0.0.1:" + port + "/lol-summoner/v1/current-summoner";
+    return sendHttpRequest(url, authorization, summonerData, "GET");
+}
