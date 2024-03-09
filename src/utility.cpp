@@ -8,6 +8,7 @@
 #include <chrono>
 #include <thread>
 #include <nlohmann/json.hpp>
+#include <iomanip>
 
 using namespace std;
 using json = nlohmann::json;
@@ -108,6 +109,7 @@ bool authenticateAndAutoAccept(const string& port, const string& authorization) 
                                 }
                             }
                         } else {
+                            cout << setw(30) << left << " " << "\r" << std::flush;
                             cout << "Current phase: " << phase << "\r" << std::flush;
                         }
 
