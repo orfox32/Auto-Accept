@@ -8,6 +8,7 @@
 #include <chrono>
 #include <thread>
 using namespace std;
+using std::min;
 
 size_t WriteCallback(void *contents, size_t size, size_t nmemb, string *buffer)
 {
@@ -62,7 +63,7 @@ while (true) {
     }
     cerr << "Error: "<< curl_easy_strerror(res) << endl;
     std::this_thread::sleep_for(std::chrono::seconds(retryDelaySeconds));
-    retryDelaySeconds = std::min(2 * retryDelaySeconds, 60);   
+    retryDelaySeconds = min(2 * retryDelaySeconds, 60);   
 }
    curl_easy_cleanup(curl);
     return false;
