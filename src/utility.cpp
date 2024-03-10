@@ -48,7 +48,7 @@ bool extractAndEncodeRiotPassword(DWORD processId, string& port, string& encoded
     return false;
 }
 
-bool authenticateAndAutoAccept(const string& port, const string& authorization) {
+bool authenticateAndAutoAccept(const string& port, const string& authorization, int retryDelaySeconds) {
 
     bool loggedIn = false;
 
