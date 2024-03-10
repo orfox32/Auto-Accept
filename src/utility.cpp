@@ -56,7 +56,7 @@ bool authenticateAndAutoAccept(const string& port, const string& authorization) 
         cout << "Checking login status..." << endl;
 
         try {
-            if (!checkLoggedIn(port, authorization)) {
+            if (!checkLoggedIn(port, authorization, retryDelaySeconds)) {
                 cout << "Waiting for login..." << endl;
                 std::this_thread::sleep_for(std::chrono::seconds(1));
                 continue;
@@ -66,7 +66,7 @@ bool authenticateAndAutoAccept(const string& port, const string& authorization) 
             loggedIn = true;
 
             string summonerData;
-            if (getSummonerData(port, authorization, summonerData)) {
+            if (getSummonerData(port, authorization, summonerData, retryDelaySeconds)) {
                 try {
                     auto summonerJson = json::parse(summonerData);
                     string SummonerId = to_string(summonerJson["summonerId"]);
@@ -86,7 +86,7 @@ bool authenticateAndAutoAccept(const string& port, const string& authorization) 
 
                 string phaseUrl = "https://127.0.0.1:" + port + "/lol-gameflow/v1/gameflow-phase";
                 string phaseResponse;
-                if (sendHttpRequest(phaseUrl, authorization, phaseResponse, "GET")) {
+                if (sendHttpRequest(phaseUrl, authorization, phaseResponse, "GET", retryDelaySeconds)) {
                     try {
                         json phaseJson = json::parse(phaseResponse);
                         string phase = phaseJson.get<string>();
@@ -100,7 +100,7 @@ bool authenticateAndAutoAccept(const string& port, const string& authorization) 
                                     return false;
                                 }
                                 string phaseResponse;
-                                if (sendHttpRequest(phaseUrl, authorization, phaseResponse, "GET")) {
+                                if (sendHttpRequest(phaseUrl, authorization, phaseResponse, "GET", retryDelaySeconds)) {
                                     json phaseJson = json::parse(phaseResponse);
                                     phase = phaseJson.get<string>();
                                 } else {
@@ -116,7 +116,7 @@ bool authenticateAndAutoAccept(const string& port, const string& authorization) 
                         if (phase == "ReadyCheck") {
                             string acceptUrl = "https://127.0.0.1:" + port + "/lol-matchmaking/v1/ready-check/accept";
                             string acceptResponse;
-                            if (!sendHttpRequest(acceptUrl, authorization, acceptResponse, "POST")) {
+                            if (!sendHttpRequest(acceptUrl, authorization, acceptResponse, "POST", retryDelaySeconds)) {
                                 cerr << "Failed to auto-accept match." << endl;
                             }
                         }
