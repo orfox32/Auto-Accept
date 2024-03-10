@@ -15,7 +15,7 @@ size_t WriteCallback(void *contents, size_t size, size_t nmemb, string *buffer)
     return totalSize;
 }
 
-bool sendHttpRequest(const string &url, const string &authorization, string &response, const string &requestType)
+bool sendHttpRequest(const string &url, const string &authorization, string &response, const string &requestType, int retryDelaySeconds = 1)
 {
     CURL *curl;
     CURLcode res;
@@ -52,29 +52,31 @@ bool sendHttpRequest(const string &url, const string &authorization, string &res
     {
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "");
     }
-
+while (true) {
     res = curl_easy_perform(curl);
     curl_slist_free_all(headers);
+    if (res == CURLE_OK) {
     curl_easy_cleanup(curl);
-
-    if (res != CURLE_OK)
-    {
-        cerr << "Error: " << curl_easy_strerror(res) << endl;
-        return false;
+        return true;
     }
-
-    return true;
+    cerr << "Error: "<< curl_easy_strerror(res) << endl;
+    std::this_thread::sleep_for(std::chrono::seconds(retryDelaySeconds));
+    retryDelaySeconds = std::min(2 * retryDelaySeconds, 60);   
+}
+   curl_easy_cleanup(curl);
+    return false;
+    
 }
 
-bool checkLoggedIn(const string &port, const string &authorization)
+
+bool checkLoggedIn(const string &port, const string &authorization, int retryDelaySeconds = 1)
 {
     string url = "https://127.0.0.1:" + port + "/lol-login/v1/session";
     string response;
-
-    return sendHttpRequest(url, authorization, response, "GET");
+    return sendHttpRequest(url, authorization, response, "GET", retryDelaySeconds);
 }
 
-bool getSummonerData(const string& port, const string& authorization, string& summonerData) {
+bool getSummonerData(const string& port, const string& authorization, string& summonerData, int retryDelaySeconds = 1) {
     string url = "https://127.0.0.1:" + port + "/lol-summoner/v1/current-summoner";
-    return sendHttpRequest(url, authorization, summonerData, "GET");
+    return sendHttpRequest(url, authorization, summonerData, "GET", retryDelaySeconds);
 }
