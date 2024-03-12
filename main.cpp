@@ -39,6 +39,7 @@ void printCenteredArt(const string& art, int paddingTop, int paddingBottom) {
         lines.push_back(art.substr(pos, found - pos));
         pos = found + 1;
     }
+
     if (pos < art.size())
         lines.push_back(art.substr(pos));
 
@@ -102,7 +103,6 @@ int main() {
         cerr << "Error: League of Legends client is not running." << endl;
         return 1;
     }
-    
+
     return 0;
 }
-
