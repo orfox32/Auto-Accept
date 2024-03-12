@@ -7,6 +7,9 @@
 #include <openssl/buffer.h>
 #include <chrono>
 #include <thread>
+#include <fstream>
+
+
 using namespace std;
 using std::min;
 
@@ -54,31 +57,43 @@ bool sendHttpRequest(const string &url, const string &authorization, string &res
     {
         curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "");
     }
-while (true) {
-    res = curl_easy_perform(curl);
-    curl_slist_free_all(headers);
-    if (res == CURLE_OK) {
-    curl_easy_cleanup(curl);
-        return true;
-    }
-    cerr << "Error: "<< curl_easy_strerror(res) << endl;
-    std::this_thread::sleep_for(std::chrono::seconds(retryDelaySeconds));
-    retryDelaySeconds = min(2 * retryDelaySeconds, 60);   
-}
-   curl_easy_cleanup(curl);
-    return false;
-    
-}
 
+    while (true)
+    {
+        res = curl_easy_perform(curl);
+        if (res == CURLE_OK)
+        {
+            curl_slist_free_all(headers);
+            curl_easy_cleanup(curl);
+            return true;
+        }
+        std::ofstream nullStream;
+        nullStream.open("NUL"); 
+        std::ostream nullOutput(nullStream.rdbuf());
+        auto oldCerr = std::cerr.rdbuf(nullOutput.rdbuf());
+        cerr << "Error: " << curl_easy_strerror(res) << "\r" << std::flush;
+        std::cerr.rdbuf(oldCerr);
+        std::this_thread::sleep_for(std::chrono::seconds(retryDelaySeconds));
+        retryDelaySeconds = min(2 * retryDelaySeconds, 60);
+    }
+
+    curl_slist_free_all(headers);
+    curl_easy_cleanup(curl);
+    return false;
+}
 
 bool checkLoggedIn(const string &port, const string &authorization, int retryDelaySeconds = 1)
 {
     string url = "https://127.0.0.1:" + port + "/lol-login/v1/session";
     string response;
+
     return sendHttpRequest(url, authorization, response, "GET", retryDelaySeconds);
 }
 
-bool getSummonerData(const string& port, const string& authorization, string& summonerData, int retryDelaySeconds = 1) {
+bool getSummonerData(const string &port, const string &authorization, string &summonerData, int retryDelaySeconds = 1)
+{
+
     string url = "https://127.0.0.1:" + port + "/lol-summoner/v1/current-summoner";
+    
     return sendHttpRequest(url, authorization, summonerData, "GET", retryDelaySeconds);
 }
