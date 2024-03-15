@@ -1,3 +1,6 @@
+#include "utility.h"
+#include "base64.h"
+#include "league_client.h"
 #include "http_request.h"
 #include <iostream>
 #include <curl/curl.h>

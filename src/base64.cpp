@@ -1,4 +1,7 @@
+#include "utility.h"
 #include "base64.h"
+#include "league_client.h"
+#include "http_request.h"
 #include <openssl/bio.h>
 #include <openssl/evp.h>
 #include <openssl/buffer.h>

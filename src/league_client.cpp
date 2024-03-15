@@ -1,4 +1,7 @@
+#include "utility.h"
+#include "base64.h"
 #include "league_client.h"
+#include "http_request.h"
 #include <Windows.h>
 #include <TlHelp32.h>
 
