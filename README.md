@@ -61,5 +61,5 @@ Thank you for using League of Legends Auto Accept Queue! Happy gaming! 🎮🚀
   <img src="https://contrib.rocks/image?repo=orfox32/Auto-Accept" />
 </a>
 
-Made with [contrib.rocks](https://contrib.rocks).
+
 
