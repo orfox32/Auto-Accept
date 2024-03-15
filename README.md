@@ -55,6 +55,8 @@ For any inquiries or support, you can reach out to orfox32@gmail.com.
 
 Thank you for using League of Legends Auto Accept Queue! Happy gaming! 🎮🚀
 
+## Contributors
+
 <a href="https://github.com/orfox32/Auto-Accept/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=orfox32/Auto-Accept" />
 </a>
