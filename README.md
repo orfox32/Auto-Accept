@@ -34,7 +34,7 @@ League of Legends Auto Accept Queue is a C++ script/tool designed to automatical
 ## Screenshot
 
 <div align="center">
-  <img src="screenshots/dashboard.png" alt="Main Dashboard" width="80%"/>
+  <img src="screenshot/dashboard.png" alt="Main Dashboard" width="80%"/>
   <p><em>Main Dashboard - Monitor your auto-accept status in real-time</em></p>
 </div>
 
